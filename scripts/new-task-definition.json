@@ -1,0 +1,26 @@
+{
+  "family": "mopapp-task",
+  "networkMode": "bridge",
+  "containerDefinitions": [
+    {
+      "name": "mopapp",
+      "image": "110537264261.dkr.ecr.eu-central-1.amazonaws.com/mopapp:latest",
+      "cpu": 128,
+      "memory": 256,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 5000,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "VIRTUAL_HOST",
+          "value": "ec2-18-184-119-144.eu-central-1.compute.amazonaws.com"
+        }
+      ]
+    }
+  ]
+}

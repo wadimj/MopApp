@@ -1,0 +1,29 @@
+language: csharp
+os: linux
+dist: trusty
+sudo: required
+dotnet: 2.0.0
+mono: none
+env: DOTNETCORE=1
+services:
+  - docker
+addons:
+  apt:
+    packages:
+      - docker-ce
+jobs:
+  include:
+  - stage: build
+    if: branch = master
+    script:
+      - chmod +x ./deploy-envs.sh
+      - chmod +x ./scripts/build.sh
+      - cd scripts && ./build.sh
+  - stage: deploy
+    if: branch = production
+    script:
+      - chmod +x ./deploy-envs.sh
+      - chmod +x ./scripts/build.sh
+      - chmod +x ./scripts/deploy.sh
+      - cd scripts && ./build.sh    
+      - ./deploy.sh

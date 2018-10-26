@@ -117,5 +117,11 @@ namespace WebApplication1.Controllers
 
             return result;
         }
+
+        [HttpGet("test")]
+        public string test()
+        {
+            return "test";
+        }
     }
 }
