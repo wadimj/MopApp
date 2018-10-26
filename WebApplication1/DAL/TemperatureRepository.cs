@@ -8,10 +8,10 @@ namespace WebApplication1.DAL
 {
     public class TemperatureRepository : ITemperatureRepository, IDisposable
     {
-        private TemperatureContext _context;
+        private MopContext _context;
         private bool _disposed = false;
 
-        public TemperatureRepository(TemperatureContext context)
+        public TemperatureRepository(MopContext context)
         {
             _context = context;
         }

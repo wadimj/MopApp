@@ -15,7 +15,7 @@ namespace WebApplication1.Controllers
     {
         private ITemperatureRepository _temperatureRepository;
 
-        public TemperatureController(TemperatureContext context)
+        public TemperatureController(MopContext context)
         {
             _temperatureRepository = new TemperatureRepository(context);
         }

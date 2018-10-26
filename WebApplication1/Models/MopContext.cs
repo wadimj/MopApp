@@ -2,17 +2,19 @@
 
 namespace WebApplication1.Models
 {
-    public class TemperatureContext : DbContext
+    public class MopContext : DbContext
     {
-        public TemperatureContext(DbContextOptions<TemperatureContext> options) :base(options)
+        public MopContext(DbContextOptions<MopContext> options) :base(options)
         {
         }
         
         public DbSet<Temperature> Temperatures { get; set; }
+        public DbSet<Device> Devices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Temperature>().ToTable("Temperature");
+            modelBuilder.Entity<Device>().ToTable("Devices");
         }
     }
 }

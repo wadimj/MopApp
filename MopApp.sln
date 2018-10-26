@@ -6,7 +6,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder1", "Solution
 ProjectSection(SolutionItems) = preProject
 	scripts\build.sh = scripts\build.sh
 	scripts\deploy.sh = scripts\deploy.sh
-	scripts\new-task-definition.json = scripts\new-task-definition.json
 	scripts\task-definition.json = scripts\task-definition.json
 	deploy-envs.sh = deploy-envs.sh
 	MopApp.sln = MopApp.sln

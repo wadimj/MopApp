@@ -23,7 +23,7 @@ namespace WebApplication1
             string conn = Environment.GetEnvironmentVariable("CONNECTION_STRING");
             if (conn == null) conn = Configuration.GetConnectionString("DefaultConnection");
             
-            services.AddDbContext<TemperatureContext>(options =>
+            services.AddDbContext<MopContext>(options =>
                 options.UseSqlServer(conn));
             services.AddMvc();
         }
@@ -34,6 +34,12 @@ namespace WebApplication1
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                serviceScope.ServiceProvider.GetService<MopContext>().Database.Migrate();
+                serviceScope.ServiceProvider.GetService<MopContext>().EnsureSeedData();
             }
 
             app.UseMvc();

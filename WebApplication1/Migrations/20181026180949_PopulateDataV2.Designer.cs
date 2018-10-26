@@ -11,8 +11,8 @@ using WebApplication1.Models;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(MopContext))]
-    [Migration("20181026083949_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20181026180949_PopulateDataV2")]
+    partial class PopulateDataV2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,10 +21,24 @@ namespace WebApplication1.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("WebApplication1.Models.Device", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Devices");
+                });
+
             modelBuilder.Entity("WebApplication1.Models.Temperature", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("DeviceId");
 
                     b.Property<double>("Temp");
 
@@ -32,7 +46,16 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DeviceId");
+
                     b.ToTable("Temperature");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.Temperature", b =>
+                {
+                    b.HasOne("WebApplication1.Models.Device", "Device")
+                        .WithMany("Temperatures")
+                        .HasForeignKey("DeviceId");
                 });
 #pragma warning restore 612, 618
         }
