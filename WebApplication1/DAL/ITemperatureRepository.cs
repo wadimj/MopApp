@@ -12,5 +12,10 @@ namespace WebApplication1.DAL
         void DeleteTemperature(int temperatureId);
         void UpdateTemperature(Temperature temperature);
         void Save();
+        double Average();
+        IEnumerable<Device> GetDevices();
+        Device GetDeviceById(int id);
+        List<Device> GetAverages();
+        List<ChartData> GetWeekChart(Device device);
     }
 }

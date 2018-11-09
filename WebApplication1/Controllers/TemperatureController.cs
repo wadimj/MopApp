@@ -117,11 +117,24 @@ namespace WebApplication1.Controllers
 
             return result;
         }
-
-        [HttpGet("test")]
-        public string test()
+        
+        [HttpGet("average")]
+        public double Average()
         {
-            return "test";
+            return _temperatureRepository.Average();
+        }
+        
+        [HttpGet("devices")]
+        public IEnumerable<Device> Devices()
+        {
+            return _temperatureRepository.GetAverages();
+        }
+
+        [HttpGet("plot/{id}")]
+        public IEnumerable<ChartData> Plot(int id)
+        {
+            Device d = _temperatureRepository.GetDeviceById(id);
+            return _temperatureRepository.GetWeekChart(d);
         }
     }
 }

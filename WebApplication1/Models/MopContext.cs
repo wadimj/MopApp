@@ -10,6 +10,7 @@ namespace WebApplication1.Models
         
         public DbSet<Temperature> Temperatures { get; set; }
         public DbSet<Device> Devices { get; set; }
+        public DbSet<ChartData> ChartDatas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

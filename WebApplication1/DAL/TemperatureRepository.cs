@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
@@ -63,6 +64,52 @@ namespace WebApplication1.DAL
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public double Average()
+        {
+            using (var connection = _context.Database.GetDbConnection())
+            {
+                connection.Open();
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT AVG(Temperature.Temp) FROM Temperature";
+                    return  Convert.ToDouble(command.ExecuteScalar().ToString());
+                }
+            }
+        }
+        
+        public IEnumerable<Device> GetDevices()
+        {
+            var devices = _context.Devices.ToList();
+            return devices;
+        }
+
+        public Device GetDeviceById(int id)
+        {
+            return _context.Devices.Find(id);
+        }
+
+        public List<Device> GetAverages()
+        {
+            var data = _context.Temperatures
+                .GroupBy( g => g.Device)
+                .Select( g => new Device()
+                {
+                    Id = g.Key.Id,
+                    Name = g.Key.Name,
+                    Average = g.Average(p => p.Temp)
+                });
+
+            return data.ToList<Device>();
+        }
+
+        public List<ChartData> GetWeekChart(Device device)
+        {
+            return _context.ChartDatas.FromSql(
+                "GetWeeklyAverageTemperatures @deviceId={0}", 
+                device.Id).AsNoTracking().ToList();
         }
     }
 }
