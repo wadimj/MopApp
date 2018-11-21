@@ -93,16 +93,8 @@ namespace WebApplication1.DAL
 
         public List<Device> GetAverages()
         {
-            var data = _context.Temperatures
-                .GroupBy( g => g.Device)
-                .Select( g => new Device()
-                {
-                    Id = g.Key.Id,
-                    Name = g.Key.Name,
-                    Average = g.Average(p => p.Temp)
-                });
-
-            return data.ToList<Device>();
+            return _context.Devices.FromSql(
+                "GetDeviceAverage").AsNoTracking().ToList();
         }
 
         public List<ChartData> GetWeekChart(Device device)

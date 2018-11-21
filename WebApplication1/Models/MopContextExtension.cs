@@ -9,7 +9,7 @@ namespace WebApplication1.Models
     public static class MopContextExtension
     {
         const int DeviceNo = 5;
-        const int TempPerDevice = 100000;
+        const int TempPerDevice = 100;
         
         public static void EnsureSeedData(this MopContext context)
         {

@@ -3,32 +3,22 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1.Models;
 
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(MopContext))]
-    partial class TemperatureContextModelSnapshot : ModelSnapshot
+    [Migration("20181121082638_GetDevicesStoredProcedure")]
+    partial class GetDevicesStoredProcedure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.0-preview3-35497")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("WebApplication1.Models.ChartData", b =>
-                {
-                    b.Property<int>("Week")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<double>("AvgResult");
-
-                    b.HasKey("Week");
-
-                    b.ToTable("ChartDatas");
-                });
 
             modelBuilder.Entity("WebApplication1.Models.Device", b =>
                 {
