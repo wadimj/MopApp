@@ -82,13 +82,14 @@ namespace WebApplication1.DAL
         
         public IEnumerable<Device> GetDevices()
         {
-            var devices = _context.Devices.ToList();
-            return devices;
+            return _context.Devices.FromSql(
+                "GetDeviceAverage").AsNoTracking().ToList();
         }
 
         public Device GetDeviceById(int id)
         {
-            return _context.Devices.Find(id);
+            return _context.Devices.FromSql(
+                "GetDeviceAverage").AsNoTracking().ToList().Find(x => x.Id.Equals(id));
         }
 
         public List<Device> GetAverages()
