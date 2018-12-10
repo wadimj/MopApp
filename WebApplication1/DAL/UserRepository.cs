@@ -19,7 +19,10 @@ namespace WebApplication1.DAL
         
         public IEnumerable<User> GetUsers()
         {
-            return _context.Users.ToList();
+            return _context.Users
+                .Include(user => user.UserRoles)
+                .ThenInclude(userRole => userRole.Role)
+                .ToList();
         }
 
         public User GetUserById(int userId)

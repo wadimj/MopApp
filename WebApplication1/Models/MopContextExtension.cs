@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bogus;
 using Microsoft.EntityFrameworkCore;
+using WebApplication1.Models.User;
 
 namespace WebApplication1.Models
 {
@@ -55,6 +56,49 @@ namespace WebApplication1.Models
 
                             beginning += timeInterval;
                         }
+                    }
+                    
+                    context.SaveChanges();
+                }
+                
+                if (!context.Roles.Any())
+                {
+                    context.Roles.Add(new Role()
+                    {
+                        Name = "admin"
+                    });
+                    context.Roles.Add(new Role()
+                    {
+                        Name = "subscriber"
+                    });
+                    context.SaveChanges();
+                }
+                
+                if (!context.Users.Any())
+                {
+                    var admin = new User.User()
+                    {
+                        Forename = "Administrator", Email = "admin@site.com", Username = "admin", Password = "dupa8"
+                    };
+                    context.Users.Add(admin);
+                    
+                    var role = context.Roles.ToList().Find(x => x.Name == "admin");
+                    if (role != null)
+                    {
+                        admin.UserRoles.Add(new UserRole() {UserId = admin.Id, Role = role});
+                    }
+                    context.SaveChanges();
+
+                    var subscriber = new User.User()
+                    {
+                        Forename = "Johny", Surname = "Walker", Email = "johny@site.com", Username = "johny", Password = "dupa9"
+                    };
+                    context.Users.Add(subscriber);
+                    
+                    var role2 = context.Roles.ToList().Find(x => x.Name == "subscriber");
+                    if (role2 != null)
+                    {
+                        admin.UserRoles.Add(new UserRole() {UserId = subscriber.Id, Role = role2});
                     }
                     
                     context.SaveChanges();
