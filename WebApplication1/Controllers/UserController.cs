@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.DAL;
@@ -8,6 +11,7 @@ using WebApplication1.Models.User;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class UserController : Controller
     {
@@ -18,10 +22,29 @@ namespace WebApplication1.Controllers
             _userRepository = new UserRepository(context);
         }
         
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> Authenticate(User userParam)
+        {
+            var user = await _userRepository.Authenticate(userParam.Username, userParam.Password);
+
+            if (user == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(user);
+        }
+
+        
         // GET api/user
         [HttpGet]
         public IEnumerable<object> Get(int skip = 0, int limit = 100)
         {
+            var identity = (ClaimsIdentity)User.Identity;
+            
+            var Roles = identity.Claims
+                        .Where(c => c.Type == ClaimTypes.Role)
+                        .Select(c => c.Value).ToArray();
+            
             limit = limit <= 100 ? limit : 100;
             return _userRepository
                 .GetUsers()

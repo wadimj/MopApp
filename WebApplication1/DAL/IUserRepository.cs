@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using WebApplication1.Models;
 using WebApplication1.Models.User;
 
@@ -14,5 +15,6 @@ namespace WebApplication1.DAL
         void DeleteUser(int userId);
         void UpdateUser(User user);
         void Save();
+        Task<User> Authenticate(string userParamUsername, string userParamPassword);
     }
 }

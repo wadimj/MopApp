@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 using WebApplication1.Models.User;
@@ -15,6 +16,12 @@ namespace WebApplication1.DAL
         public UserRepository(MopContext context)
         {
             _context = context;
+        }
+        
+        public async Task<User> Authenticate(string username, string password)
+        {
+            var user = await Task.Run(() => _context.Users.SingleOrDefault(x => x.Username == username && x.Password == password));
+            return user ?? null;
         }
         
         public IEnumerable<User> GetUsers()
