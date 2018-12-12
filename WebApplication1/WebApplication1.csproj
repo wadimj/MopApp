@@ -15,14 +15,13 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0-preview3-35497" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0-preview3-35497" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0-preview3-35497" />
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.1.0-preview1-final" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Fixtures\**\*.sql" CopyToOutputDirectory="PreserveNewest" />
     <None Update="entrypoint.sh" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 set -e
 run_cmd="dotnet run --server.urls https://*:5000"
 
